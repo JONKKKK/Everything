@@ -70,7 +70,7 @@ class Player:
 equipped = {
     "main":allitems.rusty_sword,
     "side":"",
-    "armor":allitems.rusty_chestplate
+    "armor":allitems.rusty_armor
 }
 inv = [allitems.minor_heal_pot]
 quest = {
@@ -83,8 +83,22 @@ player = Player(name, equipped, inv, False, quest, 0, 0)
 
 
 bigboi()
+Map = [
+    [0 for x in range(25)] for y in range(25)
+]
+
+
+def printMap ():
+    for y in range(len(Map)):
+        for x in range(len(Map)):
+            if Map[x][y] == 0:
+                print("▓▓", end = "")
+        print("")
+            
+
 #Main Loop
 while True:
+    printMap()
     #get input
     selection = input ("what would you like to do? \n('help' for help) \n")
     #call funcs with input
@@ -105,6 +119,20 @@ while True:
     elif selection == "look around":
         print("wow the void looks nice today")
         newline()
+
+    elif selection == "equip":
+        found = 0
+        player.printInv()
+        newline()
+        which = input("Which item would you like to equip?\n")
+        newline()
+        for item in player.inv:
+            if found == 1:
+                do = "nothing"
+            elif item.name == which:
+                bigboi()
+                found = 1
+        where = input("Where would you like to equip it? (Main, Side)\n")
 
     elif selection == "inspect item":
         found = 0
@@ -189,6 +217,7 @@ while True:
             else:
                 print("That item doesnt exist.")
                 newline()
+    
     else:
 
         print("That's not a command!")
